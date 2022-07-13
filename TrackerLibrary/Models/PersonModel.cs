@@ -26,5 +26,9 @@ namespace TrackerLibrary.Models
         /// The Cell phone number of the person
         /// </summary>
         public String CellPhoneNumber { get; set; }
+        /// <summary>
+        /// Full name of the person
+        /// </summary>
+        public string FullName => $"{FirstName} {LastName}";
     }
 }
