@@ -19,9 +19,13 @@ namespace TrackerUI
         // Set a list of team members selected for this team 
         private List<PersonModel> selectedTeamMembers = new List<PersonModel>();
 
-        public CreateTeamForm()
+        private ITeamRequester callingForm;
+
+        public CreateTeamForm(ITeamRequester caller)  //The interface parameter here tell this form who to call when form is initialize
         {
             InitializeComponent();
+            callingForm = caller;
+
             //Load required data on the launch of the form
             WireUpList();
         }
@@ -50,6 +54,9 @@ namespace TrackerUI
 
                 //Connect to the db and create a new team member
                 p = GlobalConfig.Connection.CreatePerson(p);
+
+                selectedTeamMembers.Add(p);
+                WireUpList();
 
                 //Clear out the team member create section
                 firstNameValue.Text = "";
@@ -117,6 +124,9 @@ namespace TrackerUI
             t.TeamMembers = selectedTeamMembers;
 
             GlobalConfig.Connection.CreateTeam(t);
+
+            callingForm.TeamComplete(t);  // Calling the parent form to tell it when are done
+            this.Close();   // close this form
        
         }
     }

@@ -25,7 +25,7 @@ namespace TrackerUI
             // Run the application
             // Application.Run(new TournamentDashboardForm());
 
-            Application.Run(new CreateTeamForm());
+            Application.Run(new CreateTournamentForm());
         }
     }
 }
