@@ -161,6 +161,7 @@ namespace TrackerUI
             tm.EntredTeams = selectedTeams;   // add each of selected teams to the tournament
 
             //Create matchups
+            TournamentLogic.CreateRounds(tm);
 
             //Finally Save the record to the database/Data sources
             GlobalConfig.Connection.CreateTournament(tm);
