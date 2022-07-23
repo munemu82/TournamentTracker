@@ -107,26 +107,21 @@ namespace TrackerLibrary.DataAccess
                 //Save Tournament entries/teams
                 saveTournamentEntries(model, connection);
 
-                saveTournamentRounds(model, connection);
+                saveTournamentRounds(connection, model);
                // return model;
             }
         }
         private void saveTournament(TournamentModel model, IDbConnection connection)
         {
-            // Loop through each Prize in the dynamic list (from the listbox)  and insert into the database TournamentPrizes table for the newly create team
-            foreach (PrizeModel pz in model.Prizes)
-            {
-                var p = new DynamicParameters();
-                p.Add("@TournamentId", model.Id);
-                p.Add("@PrizeId", pz.Id);  // Need a prize Id not the tournament model Id
-                p.Add("@id", 0, dbType: DbType.Int32, direction: ParameterDirection.Output);
 
-                // Execute SQL procedure dbo.spTournamentPrizes_Insert, to add each prize in the list to the TournamentPrizes table
-                connection.Execute("dbo.spTournamentPrizes_Insert", p, commandType: CommandType.StoredProcedure);
+            var p = new DynamicParameters();
+            p.Add("@TournamentName", model.TournamentName);
+            p.Add("@EntryFee", model.EntryFee);
+            p.Add("@id", 0, dbType: DbType.Int32, direction: ParameterDirection.Output);
 
-                //Assigned Id
-                model.Id = p.Get<int>("@id");
-            }
+            connection.Execute("dbo.spTournament_Insert", p, commandType: CommandType.StoredProcedure);
+            
+            model.Id = p.Get<int>("@id");
         }
         private void saveTournamentPrizes(TournamentModel model, IDbConnection connection)
         {

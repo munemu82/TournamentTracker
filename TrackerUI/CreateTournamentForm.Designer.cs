@@ -218,9 +218,9 @@ namespace TrackerUI
             this.prizesLabel.ForeColor = System.Drawing.SystemColors.MenuHighlight;
             this.prizesLabel.Location = new System.Drawing.Point(392, 266);
             this.prizesLabel.Name = "prizesLabel";
-            this.prizesLabel.Size = new System.Drawing.Size(198, 37);
+            this.prizesLabel.Size = new System.Drawing.Size(85, 37);
             this.prizesLabel.TabIndex = 22;
-            this.prizesLabel.Text = "Teams / Players";
+            this.prizesLabel.Text = "Prizes";
             // 
             // prizesListBox
             // 
